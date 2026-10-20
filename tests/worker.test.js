@@ -1,0 +1,32 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import worker from '../src/worker.js';
+
+test('review pages remain non-indexable and restrict scripts to local assets', async () => {
+  const response = await worker.fetch(new Request('https://demo.example/'), {
+    ASSETS: { fetch: () => new Response('<h1>SJA concept</h1>', { headers: { 'Content-Type': 'text/html' } }) }
+  });
+  assert.equal(response.status, 200);
+  assert.equal(await response.text(), '<h1>SJA concept</h1>');
+  assert.equal(response.headers.get('X-Robots-Tag'), 'noindex, nofollow, noarchive');
+  assert.match(response.headers.get('Content-Security-Policy'), /script-src 'self'/);
+  assert.match(response.headers.get('Content-Security-Policy'), /form-action 'none'/);
+});
+
+test('missing pages keep their 404 status rather than pretending to be application routes', async () => {
+  const response = await worker.fetch(new Request('https://demo.example/missing'), {
+    ASSETS: { fetch: () => new Response('Not found', { status: 404 }) }
+  });
+  assert.equal(response.status, 404);
+  assert.equal(await response.text(), 'Not found');
+});
+
+test('asset type and privacy protections survive worker processing', async () => {
+  const response = await worker.fetch(new Request('https://demo.example/contact.json'), {
+    ASSETS: { fetch: () => new Response('{}', { headers: { 'Content-Type': 'application/json' } }) }
+  });
+  assert.equal(response.headers.get('Content-Type'), 'application/json');
+  assert.equal(response.headers.get('X-Content-Type-Options'), 'nosniff');
+  assert.equal(response.headers.get('Referrer-Policy'), 'strict-origin-when-cross-origin');
+  assert.match(response.headers.get('Permissions-Policy'), /geolocation=\(\)/);
+});

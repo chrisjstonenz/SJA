@@ -1,0 +1,9 @@
+node_modules/
+.wrangler/
+.output/
+test-results/
+artifacts/
+.pages/
+.dev.vars
+.env
+.DS_Store

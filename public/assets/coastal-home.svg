@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1100" viewBox="0 0 1000 1100" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="500" y1="0" x2="500" y2="790" gradientUnits="userSpaceOnUse"><stop stop-color="#E0EDF5"/><stop offset=".65" stop-color="#F0F7F9"/><stop offset="1" stop-color="#CADDE8"/></linearGradient>
+    <linearGradient id="water" x1="300" y1="525" x2="300" y2="793" gradientUnits="userSpaceOnUse"><stop stop-color="#B6D4E3"/><stop offset="1" stop-color="#719CAF"/></linearGradient>
+    <linearGradient id="roof" x1="416" y1="427" x2="638" y2="589" gradientUnits="userSpaceOnUse"><stop stop-color="#4D687F"/><stop offset="1" stop-color="#203A51"/></linearGradient>
+    <linearGradient id="glass" x1="554" y1="601" x2="708" y2="804" gradientUnits="userSpaceOnUse"><stop stop-color="#B0CBD8"/><stop offset=".38" stop-color="#6F93A7"/><stop offset="1" stop-color="#2D4F64"/></linearGradient>
+    <linearGradient id="glassWing" x1="221" y1="683" x2="381" y2="815" gradientUnits="userSpaceOnUse"><stop stop-color="#91B4C8"/><stop offset="1" stop-color="#41657C"/></linearGradient>
+    <linearGradient id="lawn" x1="516" y1="835" x2="516" y2="1100" gradientUnits="userSpaceOnUse"><stop stop-color="#A7BCB8"/><stop offset="1" stop-color="#73959A"/></linearGradient>
+    <linearGradient id="wall" x1="516" y1="606" x2="836" y2="826" gradientUnits="userSpaceOnUse"><stop stop-color="#FEFFFF"/><stop offset="1" stop-color="#DFE8E9"/></linearGradient>
+    <linearGradient id="path" x1="679" y1="849" x2="870" y2="1100" gradientUnits="userSpaceOnUse"><stop stop-color="#E4E8E5"/><stop offset="1" stop-color="#CDD8D8"/></linearGradient>
+    <pattern id="weatherboards" width="300" height="19" patternUnits="userSpaceOnUse"><path d="M0 18.5H300" stroke="#BECED1" stroke-opacity=".44"/><path d="M0 1H300" stroke="white" stroke-opacity=".75"/></pattern>
+    <pattern id="roofSeams" width="27" height="200" patternUnits="userSpaceOnUse" patternTransform="rotate(-47)"><path d="M1 0V200" stroke="#A6BAC7" stroke-opacity=".23" stroke-width="1.5"/><path d="M4 0V200" stroke="#172F43" stroke-opacity=".4"/></pattern>
+    <clipPath id="mainRoof"><path d="M374 558 570 379 653 406 455 593Z"/></clipPath>
+    <clipPath id="gable"><path d="M455 592 653 417 851 592V835H455Z"/></clipPath>
+    <clipPath id="wing"><path d="M132 688 455 638V831L132 842Z"/></clipPath>
+    <filter id="cloud" x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="14"/></filter>
+    <filter id="houseShadow" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="15"/></filter>
+    <g id="shrub"><path d="M-46 8C-55-23-36-39-19-34-16-59 13-64 25-43 48-48 66-25 52-8 70 13 32 32 8 22-14 42-45 32-46 8Z" fill="#416F7B"/><path d="M-34-12C-29-40-8-39 3-27 18-44 37-29 37-12 56-1 35 21 13 11-4 26-31 14-34-12Z" fill="#638B94"/><path d="M-18-29C-4-38 13-27 14-17 32-27 41-8 29 0 12 6 2-8-9-4-22 0-29-17-18-29Z" fill="#83A4A9"/></g>
+    <g id="hydrangea"><path d="M-3 40 0 0M0 27-21 14M0 25 20 12" stroke="#416D76" stroke-width="3"/><path d="M-1 23C-17 5-30 15-22 25-14 31-5 29-1 23ZM1 28C11 6 31 17 23 27 17 33 6 34 1 28Z" fill="#4E7D87"/><circle cx="-12" cy="-2" r="13" fill="#AECBD9"/><circle cx="8" cy="-8" r="15" fill="#C7DDE8"/><circle cx="21" cy="7" r="13" fill="#8DAFC7"/><circle cx="-1" cy="15" r="14" fill="#A7C6D9"/><circle cx="-19" cy="13" r="11" fill="#C3DCE7"/><path d="m-8-7 5 4m10-9 3 5m4 18 5-3m-23 4 5 1m-20 0 3 4" stroke="#EDF7FA" stroke-width="3" stroke-linecap="round"/></g>
+    <g id="flax"><path d="M0 0C-7-43-32-69-47-80-23-45-17-18 0 0Z" fill="#426F78"/><path d="M0 0C-23-36-43-43-63-48-26-25-18-13 0 0Z" fill="#658C94"/><path d="M0 0C2-51 21-88 31-104 20-54 13-24 0 0Z" fill="#527F88"/><path d="M0 0C-12-62-9-93-7-110 2-62 2-23 0 0Z" fill="#80A0A6"/><path d="M0 0C23-36 41-48 58-55 28-28 16-11 0 0Z" fill="#345F6D"/><path d="M0 0C8-38 27-62 46-75 28-47 13-14 0 0Z" fill="#789CA2"/></g>
+  </defs>
+
+  <path fill="url(#sky)" d="M0 0H1000V1100H0Z"/>
+  <g opacity=".58" filter="url(#cloud)" fill="white"><path d="M-35 221C60 177 167 190 244 224 302 219 363 237 396 264H-35Z"/><path d="M613 133C697 103 751 110 811 136 895 123 966 150 1044 181H592Z"/><path d="M427 321C511 293 569 303 643 328 703 327 745 342 792 361H401Z"/></g>
+  <path d="M0 544 70 535 133 502 197 514 265 475 328 483 409 453 472 473 536 462 598 495 670 501 734 524 812 513 891 534 1000 514V705H0Z" fill="#BDD2DC"/>
+  <path d="M0 572 78 556 145 567 237 531 303 541 391 510 478 522 569 551 663 553 727 573 829 553 911 560 1000 541V714H0Z" fill="#A6C1D0"/>
+  <path d="M0 610C151 588 257 606 381 588S650 591 769 586 939 593 1000 570V797H0Z" fill="url(#water)"/>
+  <g stroke="#E0EDF2" stroke-linecap="round" opacity=".6"><path d="M0 626H143m28 7h75M63 652h135m-173 24h92m117-21h74m-242 51h118m-77 22h83m667-88h91m-68-23h66m-111 66h118m-58 20h78"/><path d="M24 625h49m70 54h33m-97 61h45m791-95h25" stroke-width="2"/></g>
+  <path d="M0 772C87 747 117 729 194 740S310 772 403 758 561 757 647 769 855 757 1000 740V1100H0Z" fill="#88A5AA"/>
+  <path d="M0 847C177 817 296 851 428 826S755 853 1000 811V1100H0Z" fill="url(#lawn)"/>
+
+  <g opacity=".82"><use href="#shrub" transform="translate(46 729) scale(1.3)"/><use href="#shrub" transform="translate(113 732) scale(.9)"/><use href="#shrub" transform="translate(920 744) scale(1.4)"/><use href="#shrub" transform="translate(981 714) scale(1.1)"/></g>
+  <path d="M82 859C257 822 714 814 921 848L957 897C757 929 277 936 65 895Z" fill="#385B69" opacity=".2" filter="url(#houseShadow)"/>
+
+  <!-- Low pavilion and its deep roof overhang. -->
+  <path d="M99 676 427 611 500 647 136 715Z" fill="#668397"/>
+  <path d="M99 676 427 611 500 647 136 715Z" fill="url(#roofSeams)"/>
+  <path d="M105 679 136 715 493 650V664L133 731 105 697Z" fill="#28455B"/>
+  <path d="M132 716 455 654V835L132 847Z" fill="#F1F6F5"/>
+  <path d="M132 716 455 654V835L132 847Z" fill="url(#weatherboards)"/>
+  <path d="M132 716 455 654V675L132 734Z" fill="#BDD0D4"/>
+  <path d="M156 737 417 689V813L156 830Z" fill="#2E4656"/>
+  <path d="M163 743 410 699V806L163 821Z" fill="url(#glassWing)"/>
+  <g clip-path="url(#wing)"><path d="m157 754 119-22-40 90-79 8Z" fill="#D1E5ED" opacity=".26"/><path d="m303 717 80-14-50 113-75 4Z" fill="#D1E5ED" opacity=".2"/><path d="m163 791 247-29v45l-247 14Z" fill="#1B3C50" opacity=".28"/></g>
+  <path d="M245 726V817m85-106v100M159 782l254-35" stroke="#354F5D" stroke-width="5"/>
+  <path d="m128 844 322-15 20 18-342 18Z" fill="#C6D3D4"/>
+  <path d="M128 865v9l344-19v-8Z" fill="#8EA7AD"/>
+
+  <!-- Standing-seam roof, cedar-white gable and shaded west elevation. -->
+  <path d="M374 558 570 379 653 406 455 593Z" fill="url(#roof)"/>
+  <g clip-path="url(#mainRoof)"><path d="M374 558 570 379 653 406 455 593Z" fill="url(#roofSeams)"/><path d="m411 547 164-150" stroke="#6F899A" stroke-width="2" opacity=".65"/></g>
+  <path d="M374 558 455 593V608L374 571Z" fill="#253F54"/>
+  <path d="M382 573 455 607V835L382 808Z" fill="#BED0D3"/>
+  <path d="m382 573 73 34v228l-73-27Z" fill="url(#weatherboards)"/>
+  <path d="m397 627 35 13v138l-35-10Z" fill="#607F8E"/>
+  <path d="m402 633 24 10v127l-24-7Z" fill="#304F64"/>
+  <path d="M455 592 653 417 851 592V835H455Z" fill="url(#wall)"/>
+  <path d="M455 592 653 417 851 592V835H455Z" fill="url(#weatherboards)"/>
+  <g clip-path="url(#gable)"><path d="M450 593 652 411 863 596" stroke="#B6C9CE" stroke-width="24"/><path d="M447 609H860" stroke="#DFE9EA" stroke-width="12"/></g>
+  <path d="m443 593 209-187 211 187" stroke="#233F56" stroke-width="15" stroke-linejoin="round"/>
+  <path d="m443 590 209-186 211 186" stroke="#6A8393" stroke-width="3" stroke-linejoin="round"/>
+  <path d="m570 379 82 25" stroke="#8095A3" stroke-width="5"/>
+  <path d="m652 413 201 180" stroke="#F2F8F9" stroke-width="3"/>
+  <path d="M629 483 654 462 679 483V550H629Z" fill="#29485B"/>
+  <path d="m636 487 18-16 18 16v56h-36Z" fill="#9BBCCB"/>
+  <path d="M654 474v69m-18-40h36" stroke="#3B5869" stroke-width="3"/>
+
+  <!-- Broad glazed living space: cool harbour reflections, quiet interior detail. -->
+  <path d="M487 622H815V819H487Z" fill="#C9D7DA"/>
+  <path d="M493 627H809V815H493Z" fill="#2E4858"/>
+  <path d="M501 634H801V808H501Z" fill="url(#glass)"/>
+  <path d="M501 745c54-13 92-8 139-14s99-8 161-2v79H501Z" fill="#335467" opacity=".7"/>
+  <path d="m501 634 117 0-73 174h-44Z" fill="#E1EFF3" opacity=".22"/>
+  <path d="M673 634h42l-70 174h-44Z" fill="#D5E8EF" opacity=".2"/>
+  <path d="M762 634h39v174h-87Z" fill="#AECBD8" opacity=".14"/>
+  <path d="M501 638h28v130l-28 12Zm275 0h25v142l-25-12Z" fill="#D7E4E7" opacity=".4"/>
+  <path d="M534 766c0-9 7-16 16-16h45c9 0 16 7 16 16v28h-77Z" fill="#C0D3D9" opacity=".65"/>
+  <path d="M529 779h87v19h-87Z" fill="#9CB7C3"/>
+  <path d="M681 785h53m-45 0 3 17m34-17-3 17" stroke="#ABC1CB" stroke-width="4"/>
+  <path d="M696 735v45m-15-44h29l-6-23h-17Z" stroke="#C2D5DC" stroke-width="3" fill="#BBCFD9" opacity=".8"/>
+  <path d="M576 630V813m78-183v183m78-183v183" stroke="#2D485A" stroke-width="6"/>
+  <path d="M501 681H801" stroke="#3B5869" stroke-width="4"/>
+  <path d="M660 719v24" stroke="#BCD0D8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M481 817H821V832H481Z" fill="#F5F8F7"/>
+  <path d="M478 833H825V848H478Z" fill="#B7C9CD"/>
+  <path d="M468 848H836V862H468Z" fill="#DDE5E4"/>
+  <path d="M468 862H836V869H468Z" fill="#8EA7AD"/>
+  <path d="M845 599V830" stroke="#C2D2D6" stroke-width="8"/>
+  <path d="M846 600v230l15 12" stroke="#7895A0" stroke-width="3"/>
+
+  <!-- Garden, a generous path and maritime planting. -->
+  <path d="M591 869H738C750 932 849 966 1000 985V1100H801C726 1030 646 969 591 869Z" fill="url(#path)"/>
+  <path d="M591 869C649 970 733 1036 801 1100" stroke="#EDF1ED" stroke-width="3"/>
+  <path d="M738 869C750 932 849 966 1000 985" stroke="#AEC2C5" stroke-width="3"/>
+  <path d="m657 958 125-11m-72 84 159-35m-93 78 186-44" stroke="#ADBDC0" stroke-width="1.5"/>
+  <path d="M0 890c111-26 167-14 264-5s151 24 257-1l64 216H0Z" fill="#75979D"/>
+  <path d="M0 940c117-45 272-9 399-10l83 170H0Z" fill="#648990" opacity=".65"/>
+  <use href="#shrub" transform="translate(78 861) scale(1.15)"/><use href="#shrub" transform="translate(169 861) scale(.83)"/>
+  <use href="#hydrangea" transform="translate(96 849) scale(1.07)"/><use href="#hydrangea" transform="translate(144 858) scale(.92)"/><use href="#hydrangea" transform="translate(62 878) scale(1.1)"/>
+  <use href="#shrub" transform="translate(360 868) scale(.8)"/><use href="#hydrangea" transform="translate(326 858) scale(.8)"/><use href="#hydrangea" transform="translate(366 866) scale(.9)"/><use href="#hydrangea" transform="translate(407 863) scale(.7)"/>
+  <use href="#flax" transform="translate(221 893) scale(.92)"/><use href="#flax" transform="translate(268 909) scale(.65)"/><use href="#flax" transform="translate(468 909) scale(.95)"/>
+  <use href="#shrub" transform="translate(915 860) scale(.85)"/><use href="#hydrangea" transform="translate(892 853) scale(.82)"/><use href="#hydrangea" transform="translate(931 859) scale(.93)"/>
+  <use href="#flax" transform="translate(972 905) scale(1.1)"/><use href="#flax" transform="translate(861 898) scale(.65)"/>
+  <path d="M11 1100C38 1028 63 993 90 976M19 1100C38 1040 35 1000 24 971M36 1100c36-65 68-85 107-98M47 1100c21-38 40-52 66-64" stroke="#406B77" stroke-width="8" stroke-linecap="round"/>
+  <use href="#flax" transform="translate(344 1089) scale(1.4)"/><use href="#flax" transform="translate(439 1098) scale(1.02)"/>
+  <use href="#hydrangea" transform="translate(145 1035) scale(1.25)"/><use href="#hydrangea" transform="translate(203 1069) scale(1.52)"/><use href="#hydrangea" transform="translate(108 1084) scale(1.4)"/>
+  <g fill="#D6E3E3" opacity=".7"><ellipse cx="526" cy="957" rx="7" ry="3"/><ellipse cx="549" cy="978" rx="4" ry="2"/><ellipse cx="284" cy="977" rx="5" ry="2"/><ellipse cx="912" cy="947" rx="6" ry="2"/></g>
+  <g fill="#9EB7BA" opacity=".6"><path d="m2 916 54 8-19 5-37-4Zm467 112 45 2-10 5-38-3Zm348-115 31 4-8 3-30-4Z"/></g>
+</svg>
