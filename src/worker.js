@@ -1,14 +1,18 @@
 // Static Cloudflare Worker, following the asset-based HunukuWeb structure.
 // This review build has no form endpoint, analytics or banking connection.
+import { workerSecurityHeaders } from './security-policy.js';
+
 export default {
   async fetch(request, env) {
+    if (!['GET', 'HEAD'].includes(request.method)) {
+      return new Response('Method not allowed', {
+        status: 405,
+        headers: { ...workerSecurityHeaders, Allow: 'GET, HEAD' }
+      });
+    }
     const response = await env.ASSETS.fetch(request);
     const headers = new Headers(response.headers);
-    headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-    headers.set('X-Content-Type-Options', 'nosniff');
-    headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-    headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
-    headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'");
+    for (const [name, value] of Object.entries(workerSecurityHeaders)) headers.set(name, value);
     return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
   }
 };

