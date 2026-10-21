@@ -36,6 +36,11 @@ function updateContactLinks() {
     const body = `Hi Sue,\n\nI’d like to talk about: ${goal}.\n\nMy meeting preference: ${place.value}.\n\nA good time to reach me is:\n\nThanks,\n`;
     emailLink.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
+  document.querySelectorAll('a[data-contact][data-method]').forEach((link) => {
+    const destination = link.dataset.method === 'phone' ? (phone ? callLink.href : '') : (email ? emailLink.href : '');
+    link.href = destination || '#contact';
+    link.dataset.contactReady = String(Boolean(destination));
+  });
   document.querySelector('#contact-links').hidden = !phone && !email;
   pending.hidden = Boolean(phone && email);
   if (phone && !email) pending.innerHTML = '<strong>Sue’s email is awaiting confirmation.</strong><p>You can use the verified phone contact above.</p>';
@@ -43,7 +48,9 @@ function updateContactLinks() {
 }
 
 document.querySelectorAll('[data-contact]').forEach((button) => {
-  button.addEventListener('click', () => {
+  button.addEventListener('click', (event) => {
+    if (button.dataset.contactReady === 'true') return;
+    event.preventDefault();
     goal = button.dataset.goal || 'Discussing my lending goals';
     requestedMethod = button.dataset.method || '';
     document.querySelector('#contact-intro').textContent = button.dataset.goal

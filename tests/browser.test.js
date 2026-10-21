@@ -75,6 +75,8 @@ test('verified contact configuration creates correct call and meeting email link
   const page = await browser.newPage();
   await page.route('**/contact.json', (route) => route.fulfill({ json: { phone: '+64 00 000 0000', phoneDisplay: 'Test contact', email: 'sue@example.test' } }));
   await page.goto(base, { waitUntil: 'networkidle' });
+  assert.equal(await page.locator('.hero-actions a[data-method="phone"]').getAttribute('href'), 'tel:+64000000000');
+  assert.match(await page.locator('.hero-actions a[data-method="email"]').getAttribute('href'), /^mailto:sue@example\.test\?/);
   await page.locator('[data-goal="Buying my first home"]').click();
   await page.locator('#meeting-place').selectOption('A phone or video conversation');
   assert.equal(await page.locator('#call-link').getAttribute('href'), 'tel:+64000000000');

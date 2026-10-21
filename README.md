@@ -49,17 +49,17 @@ Keep both files from `artifacts/` together and open `SJA-demo.html` directly in 
 
 ## Contact details
 
-`public/contact.json` is intentionally empty:
+`public/contact.json` uses Sue’s mobile number and email from the existing website, retrieved on 21 October 2026:
 
 ```json
 {
-  "phone": "",
-  "phoneDisplay": "",
-  "email": ""
+  "phone": "+64276187878",
+  "phoneDisplay": "027 618 7878",
+  "email": "sue@sjamortgages.co.nz"
 }
 ```
 
-Use the **same verified phone number and email address as Sue's current website**. The current site could not be retrieved because requests returned a network-proxy 403, so this concept does not invent those details. Until they are verified and entered, the contact actions open an explanatory review dialog rather than pretending to call or email Sue.
+These are the **same mobile number and email address as Sue’s current website**. Phone and email calls to action become direct `tel:` and `mailto:` links. The general conversation buttons offer a meeting preference and a prefilled email. If contact configuration is missing or invalid, the demo explains that instead of inventing a destination.
 
 Once configured, the call action uses a `tel:` link and the meeting action opens the visitor's email application with a suggested message. Re-run the tests and regenerate the demo after changing the JSON. There is no submission endpoint, personal financial data collection, analytics, or bank connection. Digital tools and open banking remain a conditional proposal until Sue confirms the actual service and provider.
 
@@ -67,12 +67,12 @@ Once configured, the call action uses a `tel:` link and the meeting action opens
 
 Read [docs/CONTENT-REVIEW.md](docs/CONTENT-REVIEW.md) and the demo's **Review notes** page before presentation or publication. They distinguish proposed wording from verified information and track the remaining checks.
 
-Access to the existing SJA site, comparison sites and current official FMA material was blocked during this work. Existing-site copy and contact details therefore remain unverified, and competitor findings must not be presented as completed research. The concept's new copy follows the user's brief. The FMA review is issue-spotting rather than confirmation against current retrieved guidance or an assertion that the site is launch-compliant. Confirm Sue's advice scope, disclosures, licensing details, fees/commissions, complaints information, contact details and digital-service claims before a live launch.
+Website access was restored after the initial prototype. The concept now draws on SJA’s published experience, services, contact details and disclosure documents, with new wording from the brief. [Design research](docs/DESIGN-RESEARCH.md) records comparisons with Squirrel, Loan Market and enable.me. The content review checks current official FMA disclosure and fair-dealing guidance, with final factual approval and document corrections still for Sue. It is not legal signoff or FMA approval. Open banking remains a conditional proposal until the actual provider and service are confirmed.
 
 ## Publish a review demo
 
 `.github/workflows/pages.yml` prepares the static export and deploys it to GitHub Pages on a push to `main`, or a manual workflow run. It installs the pinned dependencies, runs the Worker tests, and generates `.pages/`.
 
-The workflow attempts to enable Pages. GitHub denied automatic enablement for this repository (`Resource not accessible by integration`). The repository owner must set **Settings → Pages → Source → GitHub Actions**, then re-run the Pages workflow. It also provides a downloadable two-page review artifact. A successful deployment reports the actual review URL in its job/environment output. The source is pushed to `main`; no live Pages URL is claimed until deployment succeeds.
+GitHub Pages is now configured to use GitHub Actions. The review demo is at **https://chrisjstonenz.github.io/SJA/**. A successful deployment reports that URL in its job/environment output; the workflow also provides a downloadable two-page review artifact. Pushes to `main` republish the static export. For a fresh instance of this project, enable **Settings → Pages → Source → GitHub Actions** if automatic enablement is denied.
 
 For the Hunuku-style Cloudflare deployment, `npm run deploy` publishes the Worker and assets using an authorised Cloudflare account. Keep the dry run (`npm run check`) separate from that explicit publishing step. The Worker adds review-oriented security headers and requests that search engines do not index the pages. The static export also marks the concept for no indexing, but neither approach makes a public demo private.

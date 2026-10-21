@@ -1,42 +1,54 @@
 # SJA website concept: content review
 
-Review date: 21 October 2026 (New Zealand client date).
+Reviewed 21 October 2026 (New Zealand client date). This is a source-based presentation concept and editorial compliance check, not legal advice, an FMA approval or confirmation that a live site meets every obligation.
 
-## Status and sources
+## Sources actually retrieved
 
-This is a presentation concept for Sue, not a completed regulatory approval or a verified reproduction of the existing site. Requests to the current site and research destinations are subject to the environment's network restrictions. Official FMA requests returned proxy **403 Forbidden**, so current FMA guidance could not be retrieved and checked in this review.
+The initial access failures have been superseded by successful HTTPS requests (HTTP 200). Current FMA pages, the SJA homepage and its three public PDFs were retrieved and read. The FMA site required a normal browser User-Agent.
 
-Source destinations to verify before launch:
+| Source | Verified evidence and use |
+| --- | --- |
+| [SJA homepage](https://www.sjamortgages.co.nz/) | Current hero says “I Leave No Stone Unturned Until I Get The Perfect Loan For Your Needs!”; introduction says 40+ years in finance and experience with three main NZ banks. It describes home, investment, business and alternative lending, publishes phone/email, and links disclosure, privacy and complaints PDFs. The concept retains the factual service/experience themes and rewrites absolute promises such as “perfect”, “stress-free” and “completely unbiased”. Homepage statements are source-attributed, not independently proven biographical facts. |
+| [SJA public disclosure](https://sjamortgages.co.nz/wp-content/uploads/2026/04/SJA-Mortgages-Public-Disclosure-statement-April-2026-1.pdf) | States SJA Mortgages Ltd holds a FAP licence and gives FSP number 770755; scope includes home, personal and small business loans, with a named bank/nonbank lender list. Describes lender commissions, possible nonbank application costs, conflicts management, duties, internal complaints and Financial Services Complaints Ltd (FSCL). These are statements in SJA's published disclosure; no independent FSPR/licence-register lookup was performed. |
+| [SJA privacy statement](https://sjamortgages.co.nz/wp-content/uploads/2026/04/SJA-Mortgages-Ltd-Privacy-Policy-April-2026.pdf) | Read the published privacy policy, including collection, third-party collection, permitted use/sharing, retention and privacy contact. It does not establish a specific open banking provider or connection. The PDF also includes preparation/template guidance before the client-facing policy: Sue should arrange a clean approved public version. |
+| [SJA complaints policy](https://sjamortgages.co.nz/wp-content/uploads/2026/02/website-complaints.pdf) | Acknowledge within two working days; aim to resolve within 20 working days; external FSCL contact. Reconcile source-document inconsistencies before launch: the disclosure gives FSCL postcode 6140 and the complaints PDF gives 6011; the disclosure also promises a reply within 24 hours alongside a two-working-day acknowledgement. No correction has been invented. |
+| [FMA: Financial Advice Provider](https://www.fma.govt.nz/business/services/financial-advice-provider/) | Page marked updated 1 September 2026. Its Duties and Disclosure sections explain scope/limitations, priority to client interests where conflicts exist, and public/stage-specific disclosure obligations. Its marketing FAQ addresses integrity, fair treatment, pressure selling and fair dealing. |
+| [FMA: Fair dealing](https://www.fma.govt.nz/business/legislation/fair-dealing/) | Page marked updated 20 May 2022 and retrieved currently. Key principles: overall impression matters; omissions and buried qualifications can mislead; representations need a reasonable basis at the time they are made. |
 
-- Existing SJA site: <https://www.sjamortgages.co.nz/>. Existing-site copy and contact details have not been independently verified in this concept.
-- FMA: <https://www.fma.govt.nz/> and <https://fma.govt.nz/> — requests blocked; contents not retrieved.
-- FMA financial advice discovery URL: <https://www.fma.govt.nz/business/services/financial-advice/> — attempted, not retrieved; current path/content unverified.
-- FMA fair dealing discovery URL: <https://www.fma.govt.nz/business/focus-areas/fair-dealing/> — attempted, not retrieved; current path/content unverified.
-- NZ legislation: <https://www.legislation.govt.nz/> — official destination for checking the applicable financial advice disclosure regulations; not retrieved in this review.
+The following current legislation URLs are linked by the verified FMA page, but direct access remained blocked by the environment proxy; the legislation itself was **not independently retrieved**:
 
-The blue-and-white direction, contact-first journey, meeting at a convenient location, broader lending options, open banking direction and “Sue works for you. Banks work for banks.” tagline come from the user's brief. They must not be described as copied from the existing SJA site. New copy is proposal copy for Sue's review.
+- [Financial Markets Conduct Regulations 2014, regulation 229C](https://www.legislation.govt.nz/regulation/public/2014/0326/latest/LMS467191.html)
+- [Schedule 21A](https://www.legislation.govt.nz/regulation/public/2014/0326/latest/whole.html#LMS467413)
 
-## Proposed language and checks
+## What the official guidance means for this concept
 
-| Topic | Conservative proposal | Check before publication |
-| --- | --- | --- |
-| Main promise | “Bring your goals to life, with lending advice centred on you.” | Confirm actual advice scope; avoid promising approval, savings or a particular turnaround. |
-| Contact | “Call or email Sue to arrange a meeting at a location convenient to you.” | Verify the actual phone/email and that the meeting arrangement is available. Do not invent contact details or make a nonfunctional control appear to contact Sue. |
-| Tagline | “Sue works for you. Banks work for banks.” | Sue should approve the comparison. Place an accurate description of the advice scope nearby and provide easy access to commissions/conflicts disclosures. Do not add unsupported “independent”, “unbiased” or whole-market claims. |
-| Lending options | “When a traditional bank loan does not fit, Sue can help you explore other lending options.” | Verify the lender relationships and products Sue can advise on. Avoid “every lender”, “best rate”, guaranteed access, or implying approval after a bank decline. Lender criteria, terms and fees still apply. |
-| Open banking direction | “Less paperwork. More progress. Where available, secure digital information sharing could help you provide the information a lender needs, with your consent.” | Confirm the actual provider, bank coverage, consent flow, information collected, sharing, storage and privacy terms. Until then, present this as a proposed future experience, not an available service. |
-| Process | “Sue can help you understand what is needed and keep your application moving.” | Do not guarantee faster assessment or approval. Timing and approval remain with the lender. |
+- FMA's FAP page says an internet site must make specified public information available (regulation 229C). Further disclosures apply as scope becomes apparent (229D), when advice is given (229E), and on a complaint (229F). A homepage disclosure link does not replace every later-stage obligation.
+- FMA describes disclosures as clear, concise and effective; prominent alongside other information; easily readable; and free (229H). Use clear footer links to SJA's actual disclosure/privacy/complaints documents. Confirm those documents remain current and suitable for public use.
+- Keep the requested “Sue works for you. Banks work for banks.” tagline beside an accurate explanation of advice scope and how Sue is paid. SJA's published disclosure acknowledges lender-paid commissions and provider relationships. Do not extend the tagline into an unsupported whole-market, independent or completely unbiased claim.
+- Other lending options are supported by the published bank/nonbank panel and loan scope, but lender access is not universal. Avoid guarantees of approval, a best rate, perfect loan, fixed turnaround or approval after a decline. Keep lender criteria, terms and fees qualifications clear.
+- The brief's open banking direction is new proposal copy, not a capability verified on the existing site or by the general privacy policy. Keep the section visibly proposed and conditional. No bank connection or financial data is collected by the demo.
 
-Avoid absolute claims such as “completely secure”, “your information never leaves your bank”, “no passwords ever”, “guaranteed faster approval”, or “more private” without evidence about the actual implementation. Open banking standards alone do not substantiate every provider-specific claim.
+## Sourced fee and commission position
 
-## Required before a live launch
+The published disclosure says lenders generally pay commission; upfront commissions are described as 0.55%–0.90% of the initial loan/funding amount and, in some cases, ongoing commission of 0.10%–0.20%. It also describes possible nonbank application costs paid by the customer and says those costs are disclosed before an application. The document separately says no direct fees are charged for the financial advice. Therefore, avoid a broad “everything is free” claim; direct readers to the full current disclosure and explain any applicable costs before proceeding. The demo need not reproduce percentages that could later change.
 
-1. Retrieve and check current FMA fair dealing and financial advice disclosure guidance and the applicable Financial Markets Conduct (Regulated Financial Advice Disclosure) Regulations against the finished pages. The present review is issue-spotting, not a completed current-guidance check.
-2. Confirm Sue's actual contact details, adviser registration, the legal Financial Advice Provider/licence holder and correct FSP identifiers. Do not treat an individual's registration as proof that the individual holds the FAP licence.
-3. Provide readily accessible, verified public disclosures covering the required identity/contact information, advice nature and scope, fees, commissions/incentives and conflicts, complaints and external dispute resolution, and duties. Check both the content and timing of the disclosures. Do not invent a licence number, entity, dispute scheme, lender panel or years of experience.
-4. Verify lender relationships and any claims about products, costs, fees, savings, service availability or turnaround. “Free advice” needs evidence of the full fee/commission position; a small disclaimer cannot be assumed to repair a misleading headline.
-5. Confirm whether open banking/data sharing is currently offered or only planned. Obtain evidence for security/privacy/process claims and approve the provider's privacy/consent journey before presenting the feature as available.
-6. Have Sue approve factual statements, new proposal copy and comparative language. Compare the approved existing-site copy with this concept once source access is available.
-7. Check phone/email links and mobile contact access using the verified details. If adding a form or analytics later, supply an appropriate privacy notice and genuine submission handling before collecting personal data.
+## Source copy versus new proposal
 
-Do not call the demo “FMA approved” or describe this blocked-source review as confirmation of compliance. Keep review notes separate from the customer's main journey, while clearly identifying the page as a concept wherever needed to avoid confusion.
+The blue-and-white design, convenient-location meeting offer, contact-first journey, modern open banking direction and comparison tagline come from the user's brief. Experience and service themes come from SJA's current published copy. The main headings, process explanations and rewritten benefit statements are proposal wording for Sue's approval. Competitor interface patterns were researched separately; their business claims must not be imported as SJA facts.
+
+Suggested open banking language:
+
+> Where supported by your bank and the tools Sue uses, open banking can allow you to consent to sharing financial information through a secure connection. This may reduce manual paperwork and help prepare your lending application.
+
+The proposed label and explanation of alternatives should stay visible. Confirm the actual provider, bank coverage, consent flow, data scope, access duration, sharing, retention, revocation and privacy terms before presenting this as available. Avoid “completely secure”, “your information never leaves your bank”, “no passwords ever”, guaranteed faster approval, or comparative privacy/security improvements without implementation evidence. Open banking standards alone do not prove those claims.
+
+## Remaining live-launch checks
+
+1. Have Sue confirm current contact details, meeting arrangements, biography, actual service availability, current lender relationships and all new comparative or benefit wording.
+2. Verify the published legal identity, licence/FSP status and adviser details against the appropriate current register. Check the final site's public disclosures against the current regulations and each required disclosure stage. The legislation text was not independently retrieved during this check.
+3. Have Sue approve current disclosure/fees/commissions/conflicts and complaints details; reconcile the postal/timing inconsistencies and publish a clean public privacy PDF. Existing PDFs are real source documents, not missing or invented disclosures.
+4. Confirm whether open banking is offered or planned and obtain evidence about the actual provider's consent, privacy/security and process before changing the proposal to an availability claim.
+5. Test the real phone and email actions and final mobile experience. A contact link opens the visitor's own phone/email app; this demo does not submit a lending application or collect financial data.
+6. If a form, analytics or other data-collection backend is added, implement appropriate handling and privacy information before collecting personal information.
+
+The current review checks the proposed copy against retrieved official FMA guidance and flags unresolved factual/document matters. It does not give legal sign-off or permission to describe the demo as “FMA approved”.
