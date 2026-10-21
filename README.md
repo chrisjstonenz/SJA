@@ -2,7 +2,7 @@
 
 A blue-and-white presentation demo for Sue: goal-led lending information, prominent call/email actions, a meeting at a convenient location, and a proposed digital lending experience. This is review copy, not a live financial advice service or a completed compliance approval.
 
-The application follows the same Cloudflare Workers structure as HunukuWeb: static assets in `public/`, a small Worker in `src/worker.js`, and configuration in `wrangler.jsonc`. It has no framework build step, database or server-side contact form. The architectural SVG is original artwork supplied with the demo.
+The application follows the same Cloudflare Workers structure as HunukuWeb: static assets in `public/`, a small Worker in `src/worker.js`, and configuration in `wrangler.jsonc`. It has no framework build step, database or server-side contact form. The site now uses the user-supplied **SJA Header.svg** brand master, its exact blues and Georgia/Arial styling, and Sue’s original portrait from her existing About page. See [brand asset provenance](docs/BRAND-ASSETS.md). The architectural illustration remains original concept artwork.
 
 ## Run locally
 
@@ -45,7 +45,7 @@ This generates:
 - `artifacts/SJA-review.html` — the companion copy, source and launch review.
 - `.pages/index.html`, `.pages/review.html` and `.pages/.nojekyll` — the static GitHub Pages export.
 
-Keep both files from `artifacts/` together and open `SJA-demo.html` directly in a browser. The export embeds the CSS, JavaScript and illustration, so it needs no local server or internet connection. `artifacts/` and `.pages/` are generated and ignored by Git; regenerate them after source changes.
+Keep both files from `artifacts/` together and open `SJA-demo.html` directly in a browser. The export embeds the CSS, JavaScript, supplied logo, Sue’s portrait and illustration, so it needs no local server or internet connection. `artifacts/` and `.pages/` are generated and ignored by Git; regenerate them after source changes.
 
 ## Contact details
 

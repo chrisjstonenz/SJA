@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="360" viewBox="0 0 1800 360" role="img" aria-labelledby="title desc">
+  <title id="title">SJA Mortgages document header</title>
+  <desc id="desc">A blue and white SJA diamond logo with the SJA Mortgages name, designed as a clean header for official letters and documents.</desc>
+  <rect width="1800" height="360" fill="#FFFFFF"/>
+  <g transform="translate(66 36)">
+    <rect width="288" height="288" rx="12" fill="#3975B9"/>
+    <path d="M144 30 258 144 144 258 30 144Z" fill="none" stroke="#F8FBFF" stroke-width="4"/>
+    <text x="144" y="151" text-anchor="middle" dominant-baseline="middle" fill="#F8FBFF" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="400" letter-spacing="1">SJA</text>
+  </g>
+  <text x="410" y="170" fill="#285D98" font-family="Georgia, 'Times New Roman', serif" font-size="98" font-weight="400" letter-spacing="1">SJA</text>
+  <text x="412" y="250" fill="#285D98" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="500" letter-spacing="12">MORTGAGES</text>
+  <path d="M410 300H1734" stroke="#3975B9" stroke-width="3"/>
+</svg>
