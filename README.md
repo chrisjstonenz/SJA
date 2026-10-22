@@ -25,6 +25,8 @@ npm run check
 
 `npm test` runs the Worker tests. `npm run check` checks JavaScript syntax and performs a Cloudflare deployment **dry run**, writing generated output to `.output/`; it does not publish anything.
 
+`npm run check:headers -- https://YOUR-DEPLOYED-HOST/` verifies the actual HTTP security headers on a deployed Worker, including error responses. It intentionally fails against the current GitHub Pages address, which cannot supply these custom headers. See [deploying the response headers](docs/SECURITY-HEADERS.md) for the required account access and deployment steps.
+
 With the development server running in another terminal:
 
 ```sh

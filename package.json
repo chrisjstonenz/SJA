@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node scripts/cloudflare.mjs dev --ip 0.0.0.0 --port 8787",
     "check": "node --check public/app.js && node --check src/worker.js && node scripts/cloudflare.mjs deploy --dry-run --outdir .output",
-    "test": "node --test tests/worker.test.js tests/security.test.js",
+    "check:headers": "node --use-env-proxy --use-system-ca scripts/verify-headers.mjs",
+    "test": "node --test tests/worker.test.js tests/security.test.js tests/verify-headers.test.js",
     "test:browser": "node --test tests/browser.test.js",
     "demo": "node scripts/export-demo.mjs",
     "deploy": "node scripts/cloudflare.mjs deploy"

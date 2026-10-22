@@ -10,7 +10,16 @@ export default {
         headers: { ...workerSecurityHeaders, Allow: 'GET, HEAD' }
       });
     }
-    const response = await env.ASSETS.fetch(request);
+    let response;
+    try {
+      response = await env.ASSETS.fetch(request);
+    } catch {
+      // Keep the policy on failures too, without exposing internal error details.
+      response = new Response(request.method === 'HEAD' ? null : 'Service unavailable', {
+        status: 500,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' }
+      });
+    }
     const headers = new Headers(response.headers);
     for (const [name, value] of Object.entries(workerSecurityHeaders)) headers.set(name, value);
     return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
