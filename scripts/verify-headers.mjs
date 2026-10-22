@@ -26,11 +26,20 @@ function siteURL(input) {
 }
 
 function assertHeaders(response) {
+  const failures = [];
   for (const [name, expected] of Object.entries(workerSecurityHeaders)) {
-    if (response.headers.get(name) !== expected) {
-      throw new Error(`${name} does not match the Worker security policy.`);
+    const actual = response.headers.get(name);
+    if (name === 'Strict-Transport-Security') {
+      const maxAge = actual?.split(';').map((part) => part.trim()).filter((part) => /^max-age\s*=/i.test(part)) ?? [];
+      const value = maxAge.length === 1 && /^max-age\s*=\s*(\d+)$/i.exec(maxAge[0]);
+      if (!value || !Number.isSafeInteger(Number(value[1])) || Number(value[1]) < 31536000) {
+        failures.push(`${name} must specify one max-age of at least 31536000 seconds.`);
+      }
+    } else if (actual !== expected) {
+      failures.push(`${name} does not match the Worker security policy.`);
     }
   }
+  if (failures.length) throw new Error(failures.join(' '));
   const policy = response.headers.get('Content-Security-Policy');
   for (const directive of ["default-src 'none'", "script-src 'self'", "frame-ancestors 'none'"]) {
     if (!policy.split(';').map((part) => part.trim()).includes(directive)) {

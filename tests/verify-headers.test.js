@@ -52,7 +52,52 @@ test('the HTTP verifier rejects missing headers even when the page includes a me
     response.end('<meta http-equiv="Content-Security-Policy" content="default-src none">');
     return true;
   });
-  await assert.rejects(verifyHeaders(url), /Content-Security-Policy does not match/);
+  await assert.rejects(verifyHeaders(url), /Content-Security-Policy/);
+});
+
+const weakenedHeaders = {
+  'Strict-Transport-Security': 'max-age=0',
+  'Content-Security-Policy': "default-src *; script-src 'unsafe-inline'; frame-ancestors *",
+  'X-Frame-Options': 'SAMEORIGIN',
+  'X-Content-Type-Options': 'none',
+  'Referrer-Policy': 'unsafe-url',
+  'Permissions-Policy': 'camera=(self), microphone=(self), geolocation=(self)'
+};
+
+for (const [name, weakened] of Object.entries(weakenedHeaders)) {
+  for (const missing of [true, false]) {
+    test(`the HTTP verifier rejects ${missing ? 'missing' : 'weakened'} ${name}`, async (t) => {
+      const { url } = await fixture(t, (_request, response) => {
+        if (missing) response.removeHeader(name);
+        else response.setHeader(name, weakened);
+        response.writeHead(200, { 'Content-Type': 'text/html' });
+        response.end('<h1>Presentation concept</h1>');
+        return true;
+      });
+      await assert.rejects(verifyHeaders(url), new RegExp(name));
+    });
+  }
+}
+
+test('the HTTP verifier accepts an HSTS duration longer than the one-year minimum', async (t) => {
+  const { url } = await fixture(t, (_request, response) => {
+    response.setHeader('Strict-Transport-Security', 'max-age=63072000');
+    return false;
+  });
+  const result = await verifyHeaders(url);
+  assert.deepEqual(result, { checks: 16, requests: 18 });
+});
+
+test('the HTTP verifier rejects malformed and duplicate HSTS max-age directives', async (t) => {
+  for (const value of ['max-age=-1', 'max-age=31536000seconds', 'max-age=31536000; max-age=0']) {
+    const { url } = await fixture(t, (_request, response) => {
+      response.setHeader('Strict-Transport-Security', value);
+      response.writeHead(200, { 'Content-Type': 'text/html' });
+      response.end('Presentation concept');
+      return true;
+    });
+    await assert.rejects(verifyHeaders(url), /Strict-Transport-Security/);
+  }
 });
 
 test('the HTTP verifier checks headers on redirects and refuses off-origin redirects', async (t) => {

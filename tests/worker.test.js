@@ -111,3 +111,35 @@ test('asset exceptions become generic protected errors without leaking internals
     assert.equal(await response.text(), method === 'HEAD' ? '' : 'Service unavailable');
   }
 });
+
+test('public HTTP redirects to HTTPS before assets or method handling, preserving path and query', async () => {
+  let assetRequests = 0;
+  for (const method of ['GET', 'HEAD', 'POST']) {
+    const response = await worker.fetch(new Request('http://demo.example/review?section=copy', {
+      method,
+      headers: { 'X-Forwarded-Proto': 'https', Host: 'untrusted.example' }
+    }), {
+      ASSETS: { fetch: () => { assetRequests++; return new Response('unexpected'); } }
+    });
+    assert.equal(response.status, 308);
+    assert.equal(response.headers.get('Location'), 'https://demo.example/review?section=copy');
+    assertSecurityHeaders(response);
+    assert.equal(await response.text(), '');
+  }
+  assert.equal(assetRequests, 0);
+});
+
+test('loopback HTTP development remains usable without an HTTPS redirect', async () => {
+  for (const host of ['localhost', '127.0.0.1', '[::1]']) {
+    const request = new Request(`http://${host}:8787/`);
+    let forwarded;
+    const response = await worker.fetch(request, {
+      ASSETS: { fetch: (incoming) => { forwarded = incoming; return new Response('Local demo'); } }
+    });
+    assert.equal(forwarded, request);
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('Location'), null);
+    assertSecurityHeaders(response);
+    assert.equal(await response.text(), 'Local demo');
+  }
+});

@@ -4,6 +4,21 @@ The public GitHub Pages demo at https://chrisjstonenz.github.io/SJA/ cannot set 
 
 The existing Cloudflare Worker is the deployable fix. It applies the policy in [src/security-policy.js](../src/security-policy.js) to pages, assets, redirects and errors. `assets.run_worker_first: true` keeps requests from bypassing the Worker. This includes CSP with `frame-ancestors 'none'`, `X-Frame-Options: DENY`, `nosniff`, HSTS, no-referrer, restricted browser permissions and cross-origin protections. Asset-service exceptions return a generic, non-cacheable error with the same policy.
 
+## The six requested headers
+
+| Header | Worker configuration | Live GitHub Pages result |
+| --- | --- | --- |
+| `Strict-Transport-Security` | `max-age=31536000`; public HTTP requests also receive a 308 HTTPS redirect | Present: `max-age=31556952`, exceeding one year |
+| `Content-Security-Policy` | Default deny; local scripts/styles and contact JSON; no framing, objects or form submission | No HTTP header; the export has a hash-based meta policy |
+| `X-Frame-Options` | `DENY`, matching CSP `frame-ancestors 'none'` | Missing |
+| `X-Content-Type-Options` | `nosniff`; correct asset content types retained | Missing |
+| `Referrer-Policy` | `no-referrer` | No HTTP header; the export has a matching meta policy |
+| `Permissions-Policy` | `camera=(), microphone=(), geolocation=()` | Missing |
+
+The HTTPS redirect preserves the path/query and uses the request URL rather than forwarded headers. Only loopback hosts retain HTTP for local development. HSTS is effective only after a browser receives it over HTTPS; the redirect adds initial upgrade behavior without relying on a hosting default. No `includeSubDomains` or preload policy is added to a shared review hostname.
+
+The HTTP checker reports every header mismatch on a response. It accepts an HSTS maximum age of at least one year, so a longer valid host policy is not incorrectly reported as weaker.
+
 ## Required Cloudflare access
 
 The current cloud environment has no Cloudflare login or API-token binding. Wrangler's `whoami` confirms it is not authenticated. Deployment has not happened, and the Pages address still has the host's header limitations.
@@ -39,7 +54,8 @@ Only promote the new public review URL after this check passes and the existing 
 
 ## Validation completed
 
-- 16 Node/Worker/security/verifier tests passed, including protected exception responses and rejection of missing headers.
+- 38 Node/Worker/security/verifier tests passed, including independent checks of all six requested header policies, rejection of each missing or weakened header, stronger/invalid HSTS values, public HTTPS upgrades and protected exception responses.
 - 8 browser checks passed, covering contacts, layout, accessibility and CSP enforcement.
 - The real local Worker passed 17 header checks across 19 HTTP requests, including clean-URL redirects, GET/HEAD, 404 and empty POST/405.
+- A direct `workerd` runtime check confirmed a public HTTP URL returns 308 to its HTTPS equivalent with the same path/query.
 - The Cloudflare deployment dry run passed. The live Pages address correctly failed HTTP-header verification; no replacement public Worker address has been deployed or verified yet.

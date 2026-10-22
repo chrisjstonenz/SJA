@@ -4,6 +4,17 @@ import { workerSecurityHeaders } from './security-policy.js';
 
 export default {
   async fetch(request, env) {
+    const url = new URL(request.url);
+    const loopback = ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
+    // HSTS only protects visits after a successful HTTPS response. Enforce the
+    // initial upgrade too, while retaining HTTP for local development.
+    if (url.protocol === 'http:' && !loopback) {
+      url.protocol = 'https:';
+      return new Response(null, {
+        status: 308,
+        headers: { ...workerSecurityHeaders, Location: url.href }
+      });
+    }
     if (!['GET', 'HEAD'].includes(request.method)) {
       return new Response('Method not allowed', {
         status: 405,
